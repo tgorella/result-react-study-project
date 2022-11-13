@@ -12,14 +12,14 @@ const Users = () => {
 	const renderPhrase = (number) => {
 		const person = () => {
 			if ((number % 10 === 2 && number !==12) || (number % 10 === 3 && number !== 13) || (number % 10 === 4 && number !== 14)) {
-				return 'человека'
+				return 'человека тусанут'
 			} else {
-				return 'человек'
+				return 'человек тусанет'
 			}
 		}
 
 		return number !== 0	
-		? (<span className="badge bg-primary">{number + ' '+ person() +' тусанет с тобой сегодня'}</span>) 
+		? (<span className="badge bg-primary">{number + ' '+ person() +' с тобой сегодня'}</span>) 
 		: (<span className="badge bg-danger">Никто с тобой не тусанет</span>);
 	}
 
