@@ -1,11 +1,18 @@
-import React from 'react'
+import React from "react";
+import PropTypes from "prop-types";
 
-const Qualitie = (props) => {
+const Qualitie = ({ color, _id, name }) => {
+  return (
+    <li className={"badge " + "bg-" + color + " m-1"} key={_id}>
+      {name}{" "}
+    </li>
+  );
+};
 
-	return (
-<li className={'badge '+ 'bg-'+props.color+' m-1'} key={props._id}>{props.name} </li>
+Qualitie.propTypes = {
+  color: PropTypes.string,
+  _id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
+};
 
-	)
-}
-
-export default Qualitie
+export default Qualitie;

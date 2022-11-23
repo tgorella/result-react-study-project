@@ -1,18 +1,26 @@
-import { render } from '@testing-library/react'
-import React from 'react'
+import React from "react";
+import PropTypes from "prop-types";
 
-const RenderPhrase = (props) => {
-	const person = () => {
-		if ((props.number % 10 === 2 && props.number !==12) || (props.number % 10 === 3 && props.number !== 13) || (props.number % 10 === 4 && props.number !== 14)) {
-			return 'человека'
-		} else {
-			return 'человек'
-		}
-	}
+const RenderPhrase = ({ number }) => {
+  const person = () => {
+    if (
+      (number % 10 === 2 && number !== 12) ||
+      (number % 10 === 3 && number !== 13) ||
+      (number % 10 === 4 && number !== 14)
+    ) {
+      return "человека";
+    } else {
+      return "человек";
+    }
+  };
 
-	return props.number !== 0	
-	? (<span className="badge bg-primary">{props.number + ' '+ person() +' тусанет с тобой сегодня'}</span>) 
-	: (<span className="badge bg-danger">Никто с тобой не тусанет</span>);
-}
+  return number !== 0
+    ? (<span className="badge bg-primary"> {" "} {number + " " + person() + " тусанет с тобой сегодня"}</span>)
+    : (<span className="badge bg-danger">Никто с тобой не тусанет</span>);
+};
 
-export default RenderPhrase
+RenderPhrase.propTypes = {
+  number: PropTypes.number.isRequired
+};
+
+export default RenderPhrase;
