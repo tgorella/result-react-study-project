@@ -7,10 +7,10 @@ const Bookmark = ({ userId, bookmark, onFavourite }) => {
       className="btn btn-outline-dark"
       onClick={() => onFavourite(userId)}
     >
-      {bookmark
+      { bookmark
         ? (<i className="bi bi-bookmark-check-fill"></i>)
         : (<i className="bi bi-bookmark-plus"></i>)
-      }
+    }
     </button>
   );
 };
