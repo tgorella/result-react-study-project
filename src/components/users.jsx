@@ -10,8 +10,9 @@ const Users = () => {
   const [users, setUsers] = useState([]);
   const [professions, setProfessions] = useState();
   const [selectedProf, setSelectedProf] = useState();
-  const pageSize = 4;
   const [currentPage, setCurrentPage] = useState(1);
+  
+  const pageSize = 4;
 
   useEffect(() => {
     api.users.fetchAll().then((usersData) => setUsers(usersData));
@@ -21,14 +22,14 @@ const Users = () => {
     api.professions.fetchAll().then((data) => setProfessions(data));
   }, []);
 
+   useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedProf]);
+  
   const handlePageChange = (pageIndex) => {
     setCurrentPage(pageIndex);
   };
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [selectedProf]);
-
+  
   const handleDelete = (userId) => {
     setUsers((prevState) =>
       prevState.filter((user) => {
