@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import api from "../api/index";
-import Pagination from "./pagination";
-import RenderPhrase from "./searchStatus";
+import Pagination from "../components/pagination";
+import RenderPhrase from "../components/searchStatus";
 import { paginate } from "../utils/paginate";
-import GroupList from "./groupList";
-import UsersTable from "./usersTable";
+import GroupList from "../components/groupList";
+import UsersTable from "../components/usersTable";
+import { useParams } from "react-router-dom";
 import _ from "lodash";
+import UserPage from "../components/userPage";
 const Users = () => {
-  // useEffect(() => {
-  //   if (usersCrop <= pageSize) {
-  //     setCurrentPage(1);
-  //   }
-  // }, [usersCrop]);
+  const params = useParams();
+  const { userId } = params;
   const [users, setUsers] = useState();
   useEffect(() => {
     api.users.fetchAll().then((usersData) => setUsers(usersData));
@@ -19,7 +18,7 @@ const Users = () => {
   const [professions, setProfessions] = useState();
   const [selectedProf, setSelectedProf] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  
+
   const pageSize = 4;
 
   const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
@@ -27,14 +26,14 @@ const Users = () => {
     api.professions.fetchAll().then((data) => setProfessions(data));
   }, []);
 
-   useEffect(() => {
+  useEffect(() => {
     setCurrentPage(1);
   }, [selectedProf]);
-  
+
   const handlePageChange = (pageIndex) => {
     setCurrentPage(pageIndex);
   };
-  
+
   const handleDelete = (userId) => {
     setUsers((prevState) =>
       prevState.filter((user) => {
@@ -71,7 +70,9 @@ const Users = () => {
     const clearfilter = () => {
       setSelectedProf(undefined);
     };
-
+    if (userId) {
+      return <UserPage userId={userId} />;
+    }
     return (
       <div className="d-flex">
         {professions && (

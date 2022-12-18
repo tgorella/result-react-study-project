@@ -2,6 +2,7 @@ import React from "react";
 import Bookmark from "./bookmark";
 import Qualitie from "./qualitie";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const User = ({
   name,
@@ -16,7 +17,9 @@ const User = ({
 }) => {
   return (
     <tr scope="row">
-      <td>{name}</td>
+      <td>
+        <Link to={"/users/" + _id}>{name}</Link>
+      </td>
       <td>
         <ul>
           {qualities.map((quality) => (
