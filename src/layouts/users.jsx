@@ -18,8 +18,9 @@ const Users = () => {
   const [professions, setProfessions] = useState();
   const [selectedProf, setSelectedProf] = useState();
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchStatus, setSearchStatus] = useState("");
 
-  const pageSize = 4;
+  const pageSize = 8;
 
   const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
   useEffect(() => {
@@ -52,18 +53,44 @@ const Users = () => {
     setUsers(updatedUsers);
   };
   const handleProfessionSelect = (item) => {
+    setSearchStatus("");
     setSelectedProf(item);
   };
   const handleSort = (item) => {
     setSortBy(item);
   };
+  const handleSearchStatus = (event) => {
+    setSelectedProf(undefined);
+    setSearchStatus(event.target.value);
+  };
 
   if (users) {
-    const filteredUsers = selectedProf
-      ? users.filter((user) => user.profession._id === selectedProf._id)
-      : users;
-    const count = filteredUsers.length;
-    const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
+    // const filteredUsers = selectedProf
+    //   ? users.filter((user) => user.profession._id === selectedProf._id)
+    //   : searchStatus
+    //     ? users.filter((user) =>
+    //       user.name.toLowerCase().includes(searchStatus.toLowerCase())
+    //     )
+    //     : users;
+
+    const filteredUsers = () => {
+      if (selectedProf) {
+        return users.filter((user) => user.profession._id === selectedProf._id);
+      }
+      if (searchStatus) {
+        return users.filter((user) =>
+          user.name.toLowerCase().includes(searchStatus.toLowerCase())
+        );
+      }
+      return users;
+    };
+
+    const count = filteredUsers().length;
+    const sortedUsers = _.orderBy(
+      filteredUsers(),
+      [sortBy.path],
+      [sortBy.order]
+    );
 
     const usersCrop = paginate(sortedUsers, currentPage, pageSize);
 
@@ -94,6 +121,12 @@ const Users = () => {
           <h1>
             <RenderPhrase number={count} />
           </h1>
+          <input
+            type="text"
+            value={searchStatus}
+            placeholder="Введите имя для поиска"
+            onChange={handleSearchStatus}
+          ></input>
           {users.length > 0 && (
             <UsersTable
               users={usersCrop}

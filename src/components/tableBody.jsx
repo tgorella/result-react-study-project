@@ -19,7 +19,6 @@ const TableBody = ({ data, columns }) => {
       {data.map((item) => (
         <tr key={item._id}>
           {Object.keys(columns).map((column) => {
-            console.log(column);
             if (column === "name") {
               return (
                 <td key={column}>
