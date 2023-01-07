@@ -8,6 +8,7 @@ import UsersTable from "../components/usersTable";
 import { useParams } from "react-router-dom";
 import _ from "lodash";
 import UserPage from "../components/userPage";
+import SearchBar from "../components/searchBar";
 const Users = () => {
   const params = useParams();
   const { userId } = params;
@@ -121,12 +122,11 @@ const Users = () => {
           <h1>
             <RenderPhrase number={count} />
           </h1>
-          <input
-            type="text"
+          <SearchBar
             value={searchStatus}
             placeholder="Введите имя для поиска"
             onChange={handleSearchStatus}
-          ></input>
+          />
           {users.length > 0 && (
             <UsersTable
               users={usersCrop}
