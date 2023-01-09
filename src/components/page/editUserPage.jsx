@@ -68,56 +68,62 @@ const EditUserPage = () => {
   };
   if (user) {
     return (
-      <form onSubmit={handleSubmit}>
-        <TextField
-          name="name"
-          type="text"
-          label="Имя"
-          value={user.name}
-          onChange={handleChange}
-          error=""
-        />
-        <TextField
-          name="mail"
-          type="text"
-          label="Электронная почта"
-          value={user.email}
-          onChange={handleChange}
-          error=""
-        />
+      <div className="container mt-5">
+        <div className="row">
+          <div className="col-md-6 offset-md-3 p-5 shadow">
+            <form onSubmit={handleSubmit}>
+              <TextField
+                name="name"
+                type="text"
+                label="Имя"
+                value={user.name}
+                onChange={handleChange}
+                error=""
+              />
+              <TextField
+                name="mail"
+                type="text"
+                label="Электронная почта"
+                value={user.email}
+                onChange={handleChange}
+                error=""
+              />
 
-        <SelectField
-          name="profession"
-          onChange={handleChange}
-          label="Профессия"
-          value={user.profession._id}
-          options={professions}
-          defaultOption="Выбрать..."
-          error=""
-        />
-        <RadioField
-          options={[
-            { name: "мужчина", value: "male" },
-            { name: "женщина", value: "female" },
-            { name: "другое", value: "other" }
-          ]}
-          onChange={handleChange}
-          name="sex"
-          value={user.sex}
-          label="Выберите ваш пол"
-        />
-        <MultiSelectField
-          onChange={handleChange}
-          options={qualities}
-          name="qualities"
-          label="Выберите ваши качества"
-          defaultValue={qualities && defaultQualities()}
-        />
+              <SelectField
+                name="profession"
+                onChange={handleChange}
+                label="Профессия"
+                value={user.profession._id}
+                options={professions}
+                defaultOption="Выбрать..."
+                error=""
+              />
+              <RadioField
+                options={[
+                  { name: "мужчина", value: "male" },
+                  { name: "женщина", value: "female" },
+                  { name: "другое", value: "other" }
+                ]}
+                onChange={handleChange}
+                name="sex"
+                value={user.sex}
+                label="Выберите ваш пол"
+              />
+              <MultiSelectField
+                onChange={handleChange}
+                options={qualities}
+                name="qualities"
+                label="Выберите ваши качества"
+                defaultValue={qualities && defaultQualities()}
+              />
 
-        <button type="submit" className="btn btn-primary w-100 mx-auto">
-          Изменить
-        </button>
-      </form>
+              <button type="submit" className="btn btn-primary w-100 mx-auto">
+                Изменить
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
     );
   }
   return "Загрузка...";
