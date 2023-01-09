@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 const TextField = ({ label, type, name, value, onChange, error }) => {
+  const handleChange = ({ target }) => {
+    onChange({ name: target.name, value: target.value });
+  };
   const getInputClasses = () => {
     return "form-control " + (error ? "is-invalid" : "");
   };
@@ -19,7 +22,7 @@ const TextField = ({ label, type, name, value, onChange, error }) => {
           name={name}
           id={name}
           value={value}
-          onChange={onChange}
+          onChange={handleChange}
           className={getInputClasses()}
         />
         {type === "password" && (
@@ -27,10 +30,13 @@ const TextField = ({ label, type, name, value, onChange, error }) => {
             className="btn btn-outline-secondary"
             type="button"
             onClick={toggleShowPassword}
-          ><i className={"bi bi-eye" + (showPassword ? "-slash" : "")}></i></button>
+          >
+            <i className={"bi bi-eye" + (showPassword ? "-slash" : "")}></i>
+          </button>
         )}
+
+        {error && <div className="invalid-feedback">{error}</div>}
       </div>
-      {error && <div className="invalid-feedback">{error}</div>}
     </div>
   );
 };

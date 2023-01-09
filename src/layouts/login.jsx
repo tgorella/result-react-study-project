@@ -1,84 +1,46 @@
-import React, { useState, useEffect } from "react";
-import TextField from "../components/textField";
-import { validator } from "../utils/validator";
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import LoginForm from "../components/ui/loginForm";
+import RegisterForm from "../components/ui/registerForm";
 
 const Login = () => {
-  const [data, setData] = useState({ mail: "", password: "" });
-  const [errors, setErrors] = useState({});
-  const handleChange = ({ target }) => {
-    setData((prevState) => ({ ...prevState, [target.name]: target.value }));
+  const { type } = useParams();
+  const [formType, setFormType] = useState(
+    type === "register" ? type : "login"
+  );
+  const toggleFormType = (params) => {
+    setFormType((prevState) =>
+      prevState === "register" ? "login" : "register"
+    );
   };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const isValid = validate();
-    if (!isValid) return;
-    console.log(data);
-  };
-  useEffect(() => {
-    validate();
-  }, [data]);
-
-  const validatorConfig = {
-    mail: {
-      isRequired: {
-        message: "Электронная почта обязательна для заполнения"
-      },
-      isMail: {
-        message: "Email введен некорректно"
-      }
-    },
-    password: {
-      isRequired: {
-        message: "Пароль обязателен для заполнения"
-      },
-      isCapitalSymbol: {
-        message: "Проль должен содержать минимум 1 заглавную букву"
-      },
-      isContainNumber: {
-        message: "Проль должен содержать минимум 1 цифру"
-      },
-      minLength: {
-        message: "Проль должен содержать минимум 8 знаков",
-        value: 8
-      }
-    }
-  };
-
-  const validate = () => {
-    const errors = validator(data, validatorConfig);
-    setErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
-  const isValid = Object.keys(errors).length === 0;
 
   return (
     <div className="container mt-5">
       <div className="row">
         <div className="col-md-6 offset-md-3 p-5 shadow">
-          <h3 className="mb-3">Войти</h3>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              name="mail"
-              type="text"
-              label="Электронная почта"
-              value={data.mail}
-              onChange={handleChange}
-              error={errors.mail}
-            />
-
-            <TextField
-              name="password"
-              type="password"
-              label="Пароль"
-              value={data.password}
-              onChange={handleChange}
-              error={errors.password}
-            />
-            <button type="submit" disabled={!isValid} className="btn btn-primary w-100 mx-auto">
-              Войти
-            </button>
-          </form>
+          {formType === "register" ? (
+            <>
+              <h3 className="mb-3">Регистрация</h3>
+              <RegisterForm />
+              <p>
+                Уже есть аккаунт?{" "}
+                <a role="button" onClick={toggleFormType}>
+                  Войти
+                </a>
+              </p>
+            </>
+          ) : (
+            <>
+              <h3 className="mb-3">Войти</h3>
+              <LoginForm />
+              <p>
+                Нет аккаунта?{" "}
+                <a role="button" onClick={toggleFormType}>
+                  Регистрация
+                </a>
+              </p>
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -13,6 +13,6 @@ module.exports = {
   rules: {
     semi: [2, "always"],
     quotes: ["error", "double", { allowTemplateLiterals: true }],
-		"multiline-ternary": ["error", "always-multiline"],
+		"multiline-ternary": ["off"],
   }
 };
