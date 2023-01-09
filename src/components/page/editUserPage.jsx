@@ -107,13 +107,13 @@ const EditUserPage = () => {
                 onChange={handleChange}
                 name="sex"
                 value={user.sex}
-                label="Выберите ваш пол"
+                label="Пол"
               />
               <MultiSelectField
                 onChange={handleChange}
                 options={qualities}
                 name="qualities"
-                label="Выберите ваши качества"
+                label="Качества"
                 defaultValue={qualities && defaultQualities()}
               />
 
