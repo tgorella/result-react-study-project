@@ -33,15 +33,22 @@ const usersListPage = () => {
   };
 
   const handleDelete = (userId) => {
-    setUsers((prevState) =>
-      prevState.filter((user) => {
-        return user._id !== userId;
-      })
-    );
+    const updatedUsers = users.filter((user) => {
+      return user._id !== userId;
+    });
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
+    setUsers(updatedUsers);
+    // setUsers((prevState) =>
+    //   prevState.filter((user) => {
+    //     return user._id !== userId;
+    //   })
+    // );
   };
 
   async function handleFavorite (userId) {
-    const prevState = await api.users.getById(userId).then((user) => user.bookmark);
+    const prevState = await api.users
+      .getById(userId)
+      .then((user) => user.bookmark);
     api.users.update(userId, { bookmark: !prevState });
     // const updatedUsers = users.map((user) => {
     //   if (user._id === userId) {
