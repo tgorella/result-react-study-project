@@ -66,7 +66,7 @@ const EditUserPage = () => {
       value: qualitie._id
     }));
   };
-  if (user) {
+  if (user && professions && qualities) {
     return (
       <div className="container mt-5">
         <div className="row">
